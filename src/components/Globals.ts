@@ -5,6 +5,7 @@ const Globals = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        text-decoration: none;
     }
 
     :root {
@@ -26,6 +27,12 @@ const Globals = createGlobalStyle`
     body {
         font-family: 'Instrument Sans', sans-serif;
         min-height: 100vh;
+    }
+
+    #root {
+        display: flex;
+        min-height: 100vh;
+        background-color: var(--gray-light);
     }
 `;
 
