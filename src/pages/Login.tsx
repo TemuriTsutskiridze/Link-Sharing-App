@@ -3,8 +3,14 @@ import { Link } from "react-router-dom";
 
 import Logo from "../assets/logo.svg";
 import DevLinks from "../assets/devlinks.svg";
+import { TUser } from "../types";
 
-export default function Login() {
+type LoginProps = {
+  users: TUser[];
+};
+
+export default function Login(props: LoginProps) {
+  console.log(props.users);
   return (
     <Login_RegisterContainer>
       <Header>
@@ -41,7 +47,7 @@ export default function Login() {
   );
 }
 
-const Login_RegisterContainer = styled.div`
+export const Login_RegisterContainer = styled.div`
   width: 31.1rem;
   display: flex;
   flex-direction: column;
@@ -55,7 +61,7 @@ const Login_RegisterContainer = styled.div`
   }
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -65,7 +71,7 @@ const Header = styled.header`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -78,14 +84,14 @@ const Container = styled.div`
   }
 `;
 
-const Introduction = styled.div`
+export const Introduction = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 `;
 
-const LoginTitle = styled.h2`
+export const LoginTitle = styled.h2`
   font-size: 2.4rem;
   line-height: 150%;
   font-weight: 700;
@@ -96,35 +102,35 @@ const LoginTitle = styled.h2`
   }
 `;
 
-const LoginText = styled.p`
+export const LoginText = styled.p`
   font-size: 1.6rem;
   line-height: 150%;
   font-weight: 400;
   color: var(--gray);
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
   margin-top: 4rem;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   align-items: start;
 `;
 
-const Label = styled.label`
+export const Label = styled.label`
   font-size: 1.2rem;
   line-height: 150%;
   font-weight: 400;
   color: var(--gray-dark);
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   padding: 1.2rem 1.6rem 1.2rem 4.4rem;
   border-radius: 8px;
@@ -145,13 +151,21 @@ const Input = styled.input`
     opacity: 0.5;
   }
 
+  &::after {
+    content: "Can’t be empty";
+    color: var(--red);
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
   &:hover {
     border: 1px solid var(--purple, #633cff);
     box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
   }
 `;
 
-const LoginButton = styled.button`
+export const LoginButton = styled.button`
   width: 100%;
   padding: 1.1rem 0;
   color: var(--white);
@@ -170,7 +184,7 @@ const LoginButton = styled.button`
   }
 `;
 
-const Footer = styled.footer`
+export const Footer = styled.footer`
   display: flex;
   flex-direction: column;
   font-size: 1.6rem;
@@ -187,7 +201,7 @@ const Footer = styled.footer`
   }
 `;
 
-const Create = styled.p`
+export const Create = styled.p`
   color: var(--purple);
   cursor: pointer;
 `;

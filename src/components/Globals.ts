@@ -28,7 +28,7 @@ const Globals = createGlobalStyle`
         font-family: 'Instrument Sans', sans-serif;
         min-height: 100vh;
     }
-
+    
     #root {
         display: flex;
         min-height: 100vh;
