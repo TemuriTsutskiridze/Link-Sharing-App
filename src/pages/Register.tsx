@@ -1,9 +1,12 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import Logo from "../assets/logo.svg";
 import DevLinks from "../assets/devlinks.svg";
 import { TUser } from "../types";
+import InputComponent from "../components/InputComponent";
 
 import {
   Login_RegisterContainer,
@@ -13,9 +16,7 @@ import {
   LoginTitle,
   LoginText,
   Form,
-  InputContainer,
   Label,
-  Input,
   LoginButton,
   Footer,
   Create,
@@ -26,7 +27,44 @@ type RegisterProps = {
 };
 
 export default function Register(props: RegisterProps) {
-  console.log(props.users);
+  console.log(props);
+
+  const schema = yup
+    .object({
+      email: yup
+        .string()
+        .required("Email is required")
+        .matches(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g, "Enter valid email"),
+      password: yup
+        .string()
+        .required("Password is required")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+          "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        ),
+      repeatedPassword: yup
+        .string()
+        .required("Password confirmation is required")
+        .oneOf([yup.ref("password")], "Passwords must match"),
+    })
+    .required();
+  type FormData = yup.InferType<typeof schema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+  };
+
+  console.log(errors);
+
+  console.log(errors);
   return (
     <Login_RegisterContainer>
       <Header>
@@ -38,25 +76,34 @@ export default function Register(props: RegisterProps) {
           <LoginTitle>Create account</LoginTitle>
           <LoginText>Let’s get you started sharing your links!</LoginText>
         </Introduction>
-        <Form>
-          <InputContainer>
-            <Label>Email address</Label>
-            <Input placeholder="e.g. alex@email.com"></Input>
-          </InputContainer>
-          <InputContainer>
-            <Label>Password</Label>
-            <Input
-              placeholder="Enter your password"
-              style={{ backgroundImage: 'url("/password icon.svg")' }}
-            ></Input>
-          </InputContainer>
-          <InputContainer>
-            <Label>Confirm password</Label>
-            <Input
-              placeholder="At least .8 characters"
-              style={{ backgroundImage: 'url("/password icon.svg")' }}
-            ></Input>
-          </InputContainer>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputComponent
+            label="Email address"
+            inputType="email"
+            placeholder="e.g. alex@email.com"
+            errorMessage={errors.email?.message}
+            register={register}
+            icon="/email icon.svg"
+            name="email"
+          />
+          <InputComponent
+            label="Password"
+            inputType="password"
+            placeholder="Enter your password"
+            errorMessage={errors.password?.message}
+            register={register}
+            icon="/password icon.svg"
+            name="password"
+          />
+          <InputComponent
+            label="Confirm password"
+            inputType="password"
+            placeholder="At least 8 characters"
+            errorMessage={errors.repeatedPassword?.message}
+            register={register}
+            icon="/password icon.svg"
+            name="repeatedPassword"
+          />
           <Label style={{ color: "var(--grey)" }}>
             Password must contain at least 8 characters
           </Label>

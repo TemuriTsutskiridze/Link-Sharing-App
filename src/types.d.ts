@@ -3,3 +3,9 @@ export type TUser = {
   email: string;
   password: string;
 };
+
+export type TRegister = {
+  email: string;
+  password: string;
+  repeatedPassword: string;
+};
