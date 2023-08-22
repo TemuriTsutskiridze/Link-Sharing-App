@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { v4 as uuidV4 } from "uuid";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 import Logo from "../assets/logo.svg";
 import DevLinks from "../assets/devlinks.svg";
@@ -25,6 +27,7 @@ import { Label } from "../components/InputComponent";
 
 type RegisterProps = {
   users: TUser[];
+  setUsers: Dispatch<SetStateAction<TUser[]>>;
 };
 
 export default function Register(props: RegisterProps) {
@@ -60,12 +63,18 @@ export default function Register(props: RegisterProps) {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const newUser: TUser = {
+      id: uuidV4(),
+      email: data.email,
+      password: data.password,
+    };
+    props.setUsers([newUser, ...props.users]);
   };
 
-  console.log(errors);
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(props.users));
+  }, [props.users]);
 
-  console.log(errors);
   return (
     <Login_RegisterContainer>
       <Header>

@@ -95,7 +95,7 @@ export const Input = styled.input<TInput>`
   `}
 `;
 
-const ErrorMessage = styled.p`
+export const ErrorMessage = styled.p`
   font-size: 1.5rem;
   line-height: 150%;
   font-weight: 400;

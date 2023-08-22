@@ -3,18 +3,24 @@ import { Link } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Dispatch, SetStateAction, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Logo from "../assets/logo.svg";
 import DevLinks from "../assets/devlinks.svg";
 import { TUser } from "../types";
 import InputComponent from "../components/InputComponent";
+import { ErrorMessage } from "../components/InputComponent";
 
 type LoginProps = {
   users: TUser[];
+  setUsers: Dispatch<SetStateAction<TUser[]>>;
 };
 
 export default function Login(props: LoginProps) {
-  console.log(props);
+  const [correctInfo, setCorrectInfo] = useState(false);
+
+  const navigate = useNavigate();
   const schema = yup
     .object({
       email: yup
@@ -43,7 +49,14 @@ export default function Login(props: LoginProps) {
   console.log(errors);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const currentUser = props.users.find((user) => user.email === data.email);
+    if (currentUser?.password === data.password) {
+      navigate("/");
+      setCorrectInfo(true);
+    } else {
+      setCorrectInfo(false);
+      console.log(correctInfo);
+    }
   };
   return (
     <Login_RegisterContainer>
@@ -75,6 +88,11 @@ export default function Login(props: LoginProps) {
             icon="./password icon.svg"
             name="password"
           />
+          {!correctInfo ? (
+            <ErrorMessage>
+              Email or password is incorrect, try again.
+            </ErrorMessage>
+          ) : null}
           <LoginButton>Login</LoginButton>
         </Form>
         <Footer>
