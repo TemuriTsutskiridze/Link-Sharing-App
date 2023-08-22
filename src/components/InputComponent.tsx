@@ -34,7 +34,7 @@ export default function InputComponent({
         icon={icon}
         {...register(name)}
       ></Input>
-      <p>{errorMessage}</p>
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </InputContainer>
   );
 }
@@ -71,9 +71,10 @@ export const Input = styled.input<TInput>`
     outline: none;
     cursor: pointer;
     transition: 0.3s;
-    background-image: url(${props.icon});
+    background-image: url("${props.icon}");
     background-repeat: no-repeat;
     background-position: top 50% left 1.6rem;
+    position: relative;
 
     &::placeholder {
       opacity: 0.5;
@@ -92,4 +93,11 @@ export const Input = styled.input<TInput>`
       box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
     }
   `}
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 1.5rem;
+  line-height: 150%;
+  font-weight: 400;
+  color: var(--red);
 `;

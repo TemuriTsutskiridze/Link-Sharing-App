@@ -16,11 +16,12 @@ import {
   LoginTitle,
   LoginText,
   Form,
-  Label,
   LoginButton,
   Footer,
   Create,
 } from "./Login";
+
+import { Label } from "../components/InputComponent";
 
 type RegisterProps = {
   users: TUser[];

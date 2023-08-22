@@ -72,7 +72,7 @@ export default function Login(props: LoginProps) {
             placeholder="Enter your password"
             errorMessage={errors.password?.message}
             register={register}
-            icon="/password icon.svg"
+            icon="./password icon.svg"
             name="password"
           />
           <LoginButton>Login</LoginButton>
@@ -155,55 +155,6 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 2.4rem;
   margin-top: 4rem;
-`;
-
-export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  align-items: start;
-`;
-
-export const Label = styled.label`
-  font-size: 1.2rem;
-  line-height: 150%;
-  font-weight: 400;
-  color: var(--gray-dark);
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 1.2rem 1.6rem 1.2rem 4.4rem;
-  border-radius: 8px;
-  border: 1px solid var(--borders);
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 150%;
-  color: var(--gray-dark);
-  font-family: inherit;
-  outline: none;
-  cursor: pointer;
-  transition: 0.3s;
-  background-image: url("/email icon.svg");
-  background-repeat: no-repeat;
-  background-position: top 50% left 1.6rem;
-
-  &::placeholder {
-    opacity: 0.5;
-  }
-
-  &::after {
-    content: "Can’t be empty";
-    color: var(--red);
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 150%;
-  }
-
-  &:hover {
-    border: 1px solid var(--purple, #633cff);
-    box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
-  }
 `;
 
 export const LoginButton = styled.button`
