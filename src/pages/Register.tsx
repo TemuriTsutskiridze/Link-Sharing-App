@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { v4 as uuidV4 } from "uuid";
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Logo from "../assets/logo.svg";
 import DevLinks from "../assets/devlinks.svg";
@@ -31,8 +32,7 @@ type RegisterProps = {
 };
 
 export default function Register(props: RegisterProps) {
-  console.log(props);
-
+  const navigate = useNavigate();
   const schema = yup
     .object({
       email: yup
@@ -69,6 +69,7 @@ export default function Register(props: RegisterProps) {
       password: data.password,
     };
     props.setUsers([newUser, ...props.users]);
+    navigate("/login");
   };
 
   useEffect(() => {

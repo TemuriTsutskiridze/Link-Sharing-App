@@ -18,9 +18,10 @@ type LoginProps = {
 };
 
 export default function Login(props: LoginProps) {
-  const [correctInfo, setCorrectInfo] = useState(false);
+  const [correctInfo, setCorrectInfo] = useState(true);
 
   const navigate = useNavigate();
+
   const schema = yup
     .object({
       email: yup
